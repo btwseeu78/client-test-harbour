@@ -3,17 +3,46 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/goharbor/go-client/pkg/harbor"
 	"github.com/goharbor/go-client/pkg/sdk/v2.0/client/project"
 	"github.com/goharbor/go-client/pkg/sdk/v2.0/models"
+	"github.com/mittwald/goharbor-client/v5/apiv2"
 )
 
 func main() {
 	fmt.Println("Starting The Use Cases")
 
 	// Login To Harvour
-	LoginToHarvour()
+	LoginTovtHarbor()
 
+}
+
+func LoginTovtHarbor() {
+	client, err := apiv2.NewRESTClientForHost("http://localhost:8090/api", "admin", "godcracker123", nil)
+	if err != nil {
+		panic(err)
+	}
+
+	// projeRequest := model.ProjectReq{
+	// 	ProjectName: "testi",
+	// 	Metadata: &model.ProjectMetadata{
+	// 		Public: "true",
+	// 	},
+	// }
+	// err = client.NewProject(context.Background(), &projeRequest)
+
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	proj, err := client.GetProject(context.Background(), "tesli")
+	//proj, err := client.ListProjects(context.Background(), "test")
+
+	// if err != nil {
+	// 	panic(err)
+	// }
+	fmt.Println(proj)
 }
 
 func LoginToHarvour() {
